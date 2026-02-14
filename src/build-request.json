@@ -1,0 +1,355 @@
+{
+  "kind": "build_request",
+  "title": "Build 'Speed Racer: Urban Drift' racing/drifting game with progression, power-ups, saves, and leaderboards",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a main menu (home screen) for the game titled \"Speed Racer: Urban Drift\" with the tagline \"Race through the neon streets and master ultimate drifting!\" and buttons: Start Game, Continue, Leaderboard, Settings, How to Play, and Exit/Back.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Title: Speed Racer: Urban Drift",
+          "Tagline: “Race through the neon streets and master ultimate drifting!”",
+          "Start Game / Continue / Leaderboard / Settings / How to Play / Exit / Back"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Main menu displays the title and tagline in English.",
+        "All listed buttons are visible and clickable.",
+        "Start Game navigates to gameplay for Level 1.",
+        "Continue loads the last saved progress (or shows a clear message if no saved game exists) and enters gameplay.",
+        "Leaderboard opens the leaderboard view.",
+        "Settings opens the settings view.",
+        "How to Play opens the tutorial/instructions view.",
+        "Exit/Back returns to the main menu (and from main menu provides a clear way to leave the game page back to the app landing area)."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement core gameplay loop: player controls a car on an urban track, can move left/right, avoid obstacles/traffic, collect coins, use nitro/boost, and complete the level before a timer expires (or trigger Game Over on failure conditions).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Race through urban streets, dodge obstacles, collect coins",
+          "Complete each level before timer ends",
+          "Arrow Keys / On-screen joystick → Move car left/right",
+          "Nitro / Boost button → Temporary speed increase"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Gameplay scene renders a track and a controllable car.",
+        "Keyboard arrow keys move the car left/right on desktop.",
+        "An on-screen control (joystick or left/right buttons) is available for touch devices and works equivalently.",
+        "Coins appear in the track and are collectible, increasing the coin/score counters.",
+        "Obstacles/traffic appear and can be collided with, causing a clear penalty (e.g., reduced speed/health) and a Game Over state when appropriate.",
+        "A level timer counts down (or counts up with a time limit) and a clear success/failure condition exists tied to time/finish.",
+        "Nitro/Boost can be activated via a button; it temporarily increases speed and has a visible cooldown/charge indicator."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Add in-game HUD and controls with the following elements and placement: Top bar shows Score, Speed/Timer, Coins Collected; right side shows Nitro/Boost; bottom bar includes Pause and Restart (and Settings access while paused).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Top Bar: Score, Speedometer, Coins",
+          "Right Side: Nitro / Boost button",
+          "Bottom Bar: Pause, Restart, Settings"
+        ]
+      },
+      "acceptanceCriteria": [
+        "During gameplay, the HUD displays Score, Speed (or speedometer), Timer, and Coins collected.",
+        "Nitro/Boost control is placed on the right side and is operable.",
+        "Pause and Restart are accessible during gameplay; Settings is accessible from the pause state.",
+        "HUD updates in real time with score/coins/speed/timer changes."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement pause flow with Pause, Resume, and Restart actions that correctly freeze/unfreeze gameplay simulation and reset the level when requested.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Pause game mid-race",
+          "Resume",
+          "Restart current race / level"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Pause stops car/obstacle motion, timer progression, and input-driven simulation.",
+        "Resume continues exactly from the paused state.",
+        "Restart resets the current level state (timer, car position, obstacles, coins in level) and begins immediately."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Implement the 6-level progression structure and difficulty ramp exactly as specified: Level 1 City Streets (easy), Level 2 Downtown Rush (medium), Level 3 Neon Night (medium, night/limited visibility), Level 4 Highway Drift (hard, ramps & nitro zones), Level 5 Underground Tunnel (hard, maze-like/time-limited), Level 6 Bonus/Challenge Race (expert, collect max coins under time pressure). Each level unlocks the next level and unlocks a car or power-up.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Level 1 – City Streets",
+          "Level 2 – Downtown Rush",
+          "Level 3 – Neon Night",
+          "Level 4 – Highway Drift",
+          "Level 5 – Underground Tunnel",
+          "Level 6 – Bonus / Challenge Race",
+          "Tip: Each level unlocks the next car or power-up."
+        ]
+      },
+      "acceptanceCriteria": [
+        "A level selection/progression system exists that starts at Level 1 and unlocks subsequent levels upon completion.",
+        "Each level has distinct gameplay parameters reflecting the description (e.g., traffic density, turn tightness, visibility, ramps/nitro zones, tunnel layout/time pressure).",
+        "Upon completing a level, the next level becomes available and a car or power-up unlock event is recorded in player progress.",
+        "Level Complete UI appears at the end of a successful level."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Create level complete, power-up alert, and game over pop-ups with clear English text and actions to proceed (Next Level/Continue), retry (Restart), or return to main menu.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Pop-ups: Level Complete, Power-Up Alerts, Game Over"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Completing a level shows a Level Complete pop-up with coins/score summary and a Next Level (or Continue) action.",
+        "Collecting/activating a power-up shows a temporary alert describing the power-up.",
+        "Failing conditions show a Game Over pop-up with Restart and Main Menu options."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Implement collectible power-ups (at minimum: Nitro boost pickup/charge, Shield, Magnet) including spawn in levels, activation rules, durations, and HUD indicators.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Power-Ups: Nitro boost, shields, magnets to collect coins",
+          "Power-Ups Extra abilities like shields, turbo, magnets"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Power-ups appear as pickups in levels and can be collected.",
+        "Shield prevents (or mitigates) at least one collision penalty while active and shows an active indicator.",
+        "Magnet attracts nearby coins while active and shows an active indicator.",
+        "Nitro pickup increases available boost charge or provides an immediate boost and is reflected in the boost indicator.",
+        "Power-up effects expire after a duration or usage rule and indicators update accordingly."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Add rewards and upgrades: coins collected during races accumulate as a currency used to unlock new cars and upgrades. Provide a simple garage/store UI to view locked/unlocked cars (Sports, Muscle, Drift, Supercars) and purchase/unlock using coins.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Coins / Currency: Collect during races → unlock new cars & upgrades",
+          "Cars: Unlockable: Sports Cars, Muscle Cars, Drift Cars, Supercars"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Coins collected in gameplay are added to a persistent coin balance.",
+        "A Garage/Store screen exists listing multiple car categories (Sports, Muscle, Drift, Supercars) with at least one unlockable item per category.",
+        "Locked items show cost and can be purchased if the user has enough coins; purchase decreases coin balance and marks the item as unlocked.",
+        "Unlocked cars can be selected as the active car for gameplay and selection affects gameplay visuals and/or basic stats."
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Implement saved game progress that supports: last unlocked level, last played level, coin balance, unlocked cars/upgrades, and user settings. Continue must resume from the saved last played level with the selected car.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Continue\nResume last saved game progress"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Progress persists across page reloads/logins for the same user identity.",
+        "Continue loads the saved state and enters gameplay without losing unlocked content.",
+        "If no save exists, Continue is disabled or shows an English message explaining there is no saved progress yet."
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Implement leaderboards: record a score for completed runs/levels and allow viewing top scores (global and local/personal). Provide a leaderboard screen accessible from the main menu.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Leaderboard\nView global / local top scores",
+          "Leaderboards: Compare scores with global players / friends"
+        ]
+      },
+      "acceptanceCriteria": [
+        "At least one score metric is defined and displayed (e.g., total score for a level run, optionally including coins/time).",
+        "On level completion, the player’s score is submitted and stored.",
+        "Leaderboard screen shows a Global top list and a Personal (local) best list.",
+        "Leaderboard entries include player identifier (or anonymized label), score, and level (if applicable)."
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "text": "Create a Settings screen that includes: sound toggles (music/effects), graphics quality (Low/Medium/High), control scheme (Keyboard/Touch/Joystick), and language options (English plus at least one additional placeholder option).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Settings\nAdjust sound, graphics, controls",
+          "Sound: Toggle background music & effects",
+          "Graphics: Low / Medium / High",
+          "Controls: Keyboard, touch, or joystick",
+          "Language: English / Local options"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Settings screen is accessible from the main menu and from pause menu.",
+        "All listed settings exist and can be changed in the UI.",
+        "Selected settings are persisted and applied to gameplay (e.g., muting audio, adjusting visual effects density/quality, choosing which on-screen controls to show).",
+        "All user-facing text is in English by default."
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "text": "Add a How to Play (tutorial/instructions) screen that explains controls, objectives, coins, obstacles, and power-ups in clear English, matching the specified control scheme (arrow keys/on-screen joystick, boost, pause).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "How to Play\nGame tutorial & control instructions",
+          "Controls: Arrow Keys / On-screen joystick → Move car left/right",
+          "Objective:\nComplete each level before timer ends\nCollect as many coins as possible\nAvoid obstacles"
+        ]
+      },
+      "acceptanceCriteria": [
+        "How to Play screen is accessible from the main menu.",
+        "Instructions include controls, objective, coin collection, obstacle avoidance, and power-up usage.",
+        "Text is readable and formatted (sections/bullets) and fully in English."
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "text": "Backend canister: implement persistent data models and APIs for player progress (coins, unlocked cars/upgrades, unlocked levels, settings, last played), and leaderboard storage/querying. Use Internet Identity principal as the player key when available; otherwise support an anonymous session fallback stored on the client.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Continue\nResume last saved game progress",
+          "Leaderboards: Compare scores with global players / friends"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend exposes methods to get/update player progress keyed by principal.",
+        "Backend exposes methods to submit a score and query leaderboard entries (global and per-user).",
+        "Data remains available after canister upgrades/restarts according to standard stable storage patterns for Motoko.",
+        "Frontend successfully reads/writes progress and reads leaderboards through the generated actor."
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "text": "Define and apply a consistent visual theme for the entire UI (menus, HUD, dialogs) with a distinct \"black / neon / metallic\" street-racing style (avoid blue/purple as dominant colors), including typography, button styles, and layout spacing.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "UI Elements: Clean, glossy buttons in black / neon / metallic theme"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Main menu, settings, leaderboard, tutorial, and in-game HUD share consistent styling.",
+        "Buttons look glossy/metallic with neon accents; dominant palette is not blue/purple.",
+        "Theme is applied consistently with Tailwind utility classes and the existing component system."
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "text": "Add generated static image assets (backgrounds, cars, obstacles, collectibles, UI icons) under frontend/public/assets/generated and use them in the UI and gameplay scenes (no backend image serving).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Backgrounds: City streets (day/night), highways, tunnels, neon lights",
+          "Cars: Sports cars, drift cars, muscle cars (unlockable)",
+          "Obstacles: Other cars, traffic cones, barriers, potholes",
+          "Collectibles: Coins, nitro boosts, stars, gems"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All required generated images are present in frontend/public/assets/generated and are referenced by the frontend.",
+        "Menus and gameplay use these assets for backgrounds/sprites/icons.",
+        "No backend endpoints are used for serving image files."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor (all logic in backend/main.mo).",
+    "Do not edit immutable frontend paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
+    "Use English for all user-facing text."
+  ],
+  "nonGoals": [
+    "Multiplayer real-time racing or real-time chat.",
+    "Third-party authentication providers other than Internet Identity.",
+    "External databases or non-Internet-Computer backend services.",
+    "WebSockets/push notifications."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Neon urban city street background, daytime (bg-city-day.dim_1920x1080.png)",
+      "Neon urban city street background, night with glowing signs and limited visibility (bg-neon-night.dim_1920x1080.png)",
+      "Highway background with motion feel and ramps hinted (bg-highway.dim_1920x1080.png)",
+      "Underground tunnel background, moody lighting (bg-tunnel.dim_1920x1080.png)",
+      "Top-down or 3/4 view sports car sprite, neon reflections (car-sports.dim_512x512.png)",
+      "Top-down or 3/4 view muscle car sprite, metallic finish (car-muscle.dim_512x512.png)",
+      "Top-down or 3/4 view drift car sprite, aggressive kit (car-drift.dim_512x512.png)",
+      "Top-down or 3/4 view supercar sprite, sleek silhouette (car-super.dim_512x512.png)",
+      "Coin collectible icon, glossy metallic (icon-coin.dim_128x128.png)",
+      "Nitro/boost collectible icon, canister style (icon-nitro.dim_128x128.png)",
+      "Shield power-up icon, hex/energy style (icon-shield.dim_128x128.png)",
+      "Magnet power-up icon, neon horseshoe magnet (icon-magnet.dim_128x128.png)",
+      "Traffic cone obstacle sprite (obstacle-cone.dim_256x256.png)",
+      "Road barrier obstacle sprite (obstacle-barrier.dim_256x256.png)",
+      "Pothole obstacle sprite (obstacle-pothole.dim_256x256.png)",
+      "Speed trail particle strip texture (fx-speed-trail.dim_512x128.png)",
+      "Skid mark texture, subtle (fx-skid-mark.dim_512x128.png)"
+    ],
+    "edits": []
+  }
+}

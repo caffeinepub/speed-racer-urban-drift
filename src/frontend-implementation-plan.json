@@ -1,0 +1,452 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Speed Racer: Urban Drift — Frontend (2D) game UI, gameplay, saves, progression, garage, and leaderboards",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Main menu with title/tagline and navigation to Start/Continue/Leaderboard/Settings/How to Play/Exit-Back.",
+      "acceptanceCriteria": [
+        "Main menu displays the title and tagline in English.",
+        "All listed buttons are visible and clickable.",
+        "Start Game navigates to gameplay for Level 1.",
+        "Continue loads the last saved progress (or shows a clear message if no saved game exists) and enters gameplay.",
+        "Leaderboard opens the leaderboard view.",
+        "Settings opens the settings view.",
+        "How to Play opens the tutorial/instructions view.",
+        "Exit/Back returns to the main menu (and from main menu provides a clear way to leave the game page back to the app landing area)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the app shell and client-side routing for Main Menu, Gameplay, Leaderboard, Settings, How to Play, and Garage/Store; ensure Main Menu is reachable as the primary hub."
+        },
+        {
+          "path": "frontend/src/pages/MainMenuPage.tsx",
+          "operation": "create",
+          "description": "Implement the \"Speed Racer: Urban Drift\" main menu UI with the required tagline and buttons; use shadcn-ui Button/Card/Dialog components for consistent interactions. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ExitBackBar.tsx",
+          "operation": "create",
+          "description": "Add an in-app Exit/Back control that clearly returns to Main Menu and provides a clear way to leave the game area back to the app landing area (as applicable)."
+        },
+        {
+          "path": "frontend/src/hooks/useContinueAction.ts",
+          "operation": "create",
+          "description": "Create a helper hook that loads saved progress (backend when authenticated, otherwise local fallback) and returns the correct level/car to resume, including a no-save English message state."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Core 2D gameplay loop: steer left/right, obstacles/traffic, coins, boost, timer, and game over/success conditions.",
+      "acceptanceCriteria": [
+        "Gameplay scene renders a track and a controllable car.",
+        "Keyboard arrow keys move the car left/right on desktop.",
+        "An on-screen control (joystick or left/right buttons) is available for touch devices and works equivalently.",
+        "Coins appear in the track and are collectible, increasing the coin/score counters.",
+        "Obstacles/traffic appear and can be collided with, causing a clear penalty (e.g., reduced speed/health) and a Game Over state when appropriate.",
+        "A level timer counts down (or counts up with a time limit) and a clear success/failure condition exists tied to time/finish.",
+        "Nitro/Boost can be activated via a button; it temporarily increases speed and has a visible cooldown/charge indicator."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/GamePage.tsx",
+          "operation": "create",
+          "description": "Create the gameplay page hosting a canvas-based 2D game loop (requestAnimationFrame), integrating input handling, collisions, coin pickup, boost, timer, and state transitions (running/paused/complete/game over)."
+        },
+        {
+          "path": "frontend/src/game/engine.ts",
+          "operation": "create",
+          "description": "Implement the 2D game simulation (car lateral movement, scrolling track illusion, spawn/update for coins/obstacles/power-ups, collision checks, timer/success/failure rules)."
+        },
+        {
+          "path": "frontend/src/game/input.ts",
+          "operation": "create",
+          "description": "Implement unified input mapping: keyboard arrows for desktop and touch controls (left/right + boost) for mobile; expose a simple input state for the engine."
+        },
+        {
+          "path": "frontend/src/game/render.ts",
+          "operation": "create",
+          "description": "Implement canvas rendering of backgrounds, car sprite, obstacles, collectibles, and minimal FX (e.g., speed trails) while respecting graphics quality settings."
+        },
+        {
+          "path": "frontend/src/game/assets.ts",
+          "operation": "create",
+          "description": "Centralize references to generated sprite/background asset file paths to ensure consistent usage across menus and gameplay."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "In-game HUD with top bar (Score/Speed/Timer/Coins), right-side Nitro, and bottom bar Pause/Restart (Settings via pause).",
+      "acceptanceCriteria": [
+        "During gameplay, the HUD displays Score, Speed (or speedometer), Timer, and Coins collected.",
+        "Nitro/Boost control is placed on the right side and is operable.",
+        "Pause and Restart are accessible during gameplay; Settings is accessible from the pause state.",
+        "HUD updates in real time with score/coins/speed/timer changes."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/game/HUD.tsx",
+          "operation": "create",
+          "description": "Create the gameplay HUD layout (top bar metrics, right-side boost control, bottom actions) and bind it to live game state; use shadcn-ui Button/Badge/Progress where appropriate. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/game/TouchControls.tsx",
+          "operation": "create",
+          "description": "Create touch-friendly on-screen controls (left/right buttons or joystick-like control + boost button) shown based on Settings control scheme; use shadcn-ui Button for consistent styling. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/GamePage.tsx",
+          "operation": "modify",
+          "description": "Wire HUD and touch controls into gameplay page; ensure they update from the engine state and dispatch actions (boost/pause/restart)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Pause/Resume/Restart flow that freezes and restores the simulation reliably.",
+      "acceptanceCriteria": [
+        "Pause stops car/obstacle motion, timer progression, and input-driven simulation.",
+        "Resume continues exactly from the paused state.",
+        "Restart resets the current level state (timer, car position, obstacles, coins in level) and begins immediately."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/game/PauseOverlay.tsx",
+          "operation": "create",
+          "description": "Implement a pause overlay with Resume/Restart and Settings access; use shadcn-ui Dialog or Card + Button for modal overlay UI. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/game/engine.ts",
+          "operation": "modify",
+          "description": "Add explicit pause/resume/restart controls in the simulation state machine so timer/spawns/motion cease while paused and restart reinitializes the level deterministically."
+        },
+        {
+          "path": "frontend/src/pages/GamePage.tsx",
+          "operation": "modify",
+          "description": "Wire Pause/Resume/Restart UI actions to engine controls and ensure pausing halts requestAnimationFrame-driven updates without losing current state."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Six-level progression and difficulty ramp with unlocks and level-complete UI.",
+      "acceptanceCriteria": [
+        "A level selection/progression system exists that starts at Level 1 and unlocks subsequent levels upon completion.",
+        "Each level has distinct gameplay parameters reflecting the description (e.g., traffic density, turn tightness, visibility, ramps/nitro zones, tunnel layout/time pressure).",
+        "Upon completing a level, the next level becomes available and a car or power-up unlock event is recorded in player progress.",
+        "Level Complete UI appears at the end of a successful level."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/game/levels.ts",
+          "operation": "create",
+          "description": "Define the 6 levels (City Streets, Downtown Rush, Neon Night, Highway Drift, Underground Tunnel, Bonus/Challenge Race) with distinct gameplay parameters and background selection."
+        },
+        {
+          "path": "frontend/src/components/game/LevelSelectSheet.tsx",
+          "operation": "create",
+          "description": "Add a simple level selection/progression UI (show locked/unlocked levels) launched from the main menu Start Game action; use shadcn-ui Dialog/Sheet and Button components. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/MainMenuPage.tsx",
+          "operation": "modify",
+          "description": "Wire Start Game to Level 1 by default and optionally expose a level selection/progression entry, showing locks based on saved progress."
+        },
+        {
+          "path": "frontend/src/hooks/useProgress.ts",
+          "operation": "create",
+          "description": "Create a progress state hook that reads/writes player progress (unlocked levels, last played level, unlocked cars/upgrades, coins, settings) using backend actor when authenticated and local fallback otherwise."
+        },
+        {
+          "path": "frontend/src/pages/GamePage.tsx",
+          "operation": "modify",
+          "description": "On successful level completion, update unlocked next level and record the unlock event in progress, then show Level Complete UI with Next Level."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Level complete, power-up alert, and game over popups with clear actions.",
+      "acceptanceCriteria": [
+        "Completing a level shows a Level Complete pop-up with coins/score summary and a Next Level (or Continue) action.",
+        "Collecting/activating a power-up shows a temporary alert describing the power-up.",
+        "Failing conditions show a Game Over pop-up with Restart and Main Menu options."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/game/LevelCompleteDialog.tsx",
+          "operation": "create",
+          "description": "Create a Level Complete modal with score/coins summary and Next Level/Continue action; use shadcn-ui Dialog, Button, and Separator. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/game/GameOverDialog.tsx",
+          "operation": "create",
+          "description": "Create a Game Over modal with Restart and Main Menu actions; use shadcn-ui Dialog and Button. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/game/PowerUpToast.tsx",
+          "operation": "create",
+          "description": "Create a temporary power-up alert/toast that appears on pickup/activation and auto-dismisses; use shadcn-ui toast pattern/components if present. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/GamePage.tsx",
+          "operation": "modify",
+          "description": "Wire engine state transitions (power-up pickup, level complete, game over) to the respective dialogs/toast and ensure actions correctly navigate or restart."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Power-ups (Nitro pickup/charge, Shield, Magnet) with spawn rules, durations, and HUD indicators.",
+      "acceptanceCriteria": [
+        "Power-ups appear as pickups in levels and can be collected.",
+        "Shield prevents (or mitigates) at least one collision penalty while active and shows an active indicator.",
+        "Magnet attracts nearby coins while active and shows an active indicator.",
+        "Nitro pickup increases available boost charge or provides an immediate boost and is reflected in the boost indicator.",
+        "Power-up effects expire after a duration or usage rule and indicators update accordingly."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/game/powerups.ts",
+          "operation": "create",
+          "description": "Define power-up types (Nitro, Shield, Magnet), their spawn probabilities per level, activation rules, durations/charges, and effect application hooks for the engine."
+        },
+        {
+          "path": "frontend/src/game/engine.ts",
+          "operation": "modify",
+          "description": "Implement power-up spawning, pickup collision, active timers, and effects: shield collision mitigation, magnet coin attraction radius, nitro charge/pickup behavior and boost activation."
+        },
+        {
+          "path": "frontend/src/components/game/HUD.tsx",
+          "operation": "modify",
+          "description": "Add HUD indicators for active Shield/Magnet and nitro charge/cooldown; keep Nitro control on the right side and reflect pickup-based charge changes."
+        },
+        {
+          "path": "frontend/src/components/game/PowerUpToast.tsx",
+          "operation": "modify",
+          "description": "Show clear English power-up descriptions for Nitro/Shield/Magnet pickup and activation."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Coins as persistent currency plus Garage/Store UI to unlock/select cars and basic upgrades.",
+      "acceptanceCriteria": [
+        "Coins collected in gameplay are added to a persistent coin balance.",
+        "A Garage/Store screen exists listing multiple car categories (Sports, Muscle, Drift, Supercars) with at least one unlockable item per category.",
+        "Locked items show cost and can be purchased if the user has enough coins; purchase decreases coin balance and marks the item as unlocked.",
+        "Unlocked cars can be selected as the active car for gameplay and selection affects gameplay visuals and/or basic stats."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/GaragePage.tsx",
+          "operation": "create",
+          "description": "Implement the Garage/Store screen listing car categories (Sports, Muscle, Drift, Supercars) with locked/unlocked states, coin costs, purchase, and select-active-car; use shadcn-ui Card/Button/Tabs components. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useGarage.ts",
+          "operation": "create",
+          "description": "Add garage/store state logic for purchase/unlock/select using the shared persisted progress hook (coins, unlockedCars, upgrades)."
+        },
+        {
+          "path": "frontend/src/game/cars.ts",
+          "operation": "create",
+          "description": "Define car types and basic stats/visual mappings so selection affects gameplay sprite and simple stats (e.g., top speed/handling) in a consistent way."
+        },
+        {
+          "path": "frontend/src/pages/MainMenuPage.tsx",
+          "operation": "modify",
+          "description": "Add a visible navigation entry from main menu to Garage/Store (without adding extra top-level pages beyond required screens)."
+        },
+        {
+          "path": "frontend/src/pages/GamePage.tsx",
+          "operation": "modify",
+          "description": "Use the selected active car from saved progress to choose the car sprite and apply its basic stat modifiers in gameplay."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Saved progress for unlocked/last played levels, coins, unlocked cars/upgrades, and settings; Continue resumes correctly.",
+      "acceptanceCriteria": [
+        "Progress persists across page reloads/logins for the same user identity.",
+        "Continue loads the saved state and enters gameplay without losing unlocked content.",
+        "If no save exists, Continue is disabled or shows an English message explaining there is no saved progress yet."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useProgress.ts",
+          "operation": "modify",
+          "description": "Implement persistence strategy: when authenticated, read/write progress via the generated actor; otherwise use local storage fallback keyed to an anonymous session; keep all user-facing messages in English."
+        },
+        {
+          "path": "frontend/src/hooks/useAuthProfile.tsx",
+          "operation": "create",
+          "description": "Integrate the selected authorization component behavior: on login, fetch user profile, prompt for display name if missing, and clear cached data on logout. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ProfileSetupDialog.tsx",
+          "operation": "create",
+          "description": "Add a modal dialog to collect a human-readable player name after first login (for leaderboards); use shadcn-ui Dialog/Input/Button. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/MainMenuPage.tsx",
+          "operation": "modify",
+          "description": "Implement Continue behavior: disable or show a clear English message when no save exists; when present, load saved lastPlayedLevel and selected car, then navigate into gameplay."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Leaderboards with score submission on completion and a screen showing Global and Personal lists.",
+      "acceptanceCriteria": [
+        "At least one score metric is defined and displayed (e.g., total score for a level run, optionally including coins/time).",
+        "On level completion, the player’s score is submitted and stored.",
+        "Leaderboard screen shows a Global top list and a Personal (local) best list.",
+        "Leaderboard entries include player identifier (or anonymized label), score, and level (if applicable)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LeaderboardPage.tsx",
+          "operation": "create",
+          "description": "Implement a leaderboard screen with Global top scores and Personal best list; use shadcn-ui Tabs/Table/Card components for layout. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useLeaderboards.ts",
+          "operation": "create",
+          "description": "Create a hook to fetch global top scores and personal scores via the actor when authenticated and maintain a local personal-best fallback (client-side) for anonymous sessions."
+        },
+        {
+          "path": "frontend/src/pages/GamePage.tsx",
+          "operation": "modify",
+          "description": "On level completion, compute and submit the run score via leaderboard hook (and store/update local personal best for anonymous); ensure UI proceeds to Level Complete dialog after submission."
+        },
+        {
+          "path": "frontend/src/pages/MainMenuPage.tsx",
+          "operation": "modify",
+          "description": "Wire the Leaderboard button to navigate to the leaderboard screen."
+        }
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "summary": "Settings screen with audio toggles, graphics quality, control scheme, and language options; persisted and applied.",
+      "acceptanceCriteria": [
+        "Settings screen is accessible from the main menu and from pause menu.",
+        "All listed settings exist and can be changed in the UI.",
+        "Selected settings are persisted and applied to gameplay (e.g., muting audio, adjusting visual effects density/quality, choosing which on-screen controls to show).",
+        "All user-facing text is in English by default."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/SettingsPage.tsx",
+          "operation": "create",
+          "description": "Create a Settings screen with: music/effects toggles, graphics quality (Low/Medium/High), control scheme (Keyboard/Touch/Joystick), and language options (English + placeholder); use shadcn-ui Switch/Select/RadioGroup. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useSettings.ts",
+          "operation": "create",
+          "description": "Implement a settings hook backed by persisted progress (and local fallback) and expose derived flags for gameplay rendering quality, control UI visibility, and audio mute state."
+        },
+        {
+          "path": "frontend/src/components/game/PauseOverlay.tsx",
+          "operation": "modify",
+          "description": "Add Settings navigation/action inside the pause UI, ensuring return back to gameplay is clear."
+        },
+        {
+          "path": "frontend/src/pages/GamePage.tsx",
+          "operation": "modify",
+          "description": "Apply settings to gameplay: graphics density/FX, on-screen controls selection, and audio mute behavior (where audio is present)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "summary": "How to Play screen with clear English instructions covering controls, objectives, coins, obstacles, and power-ups.",
+      "acceptanceCriteria": [
+        "How to Play screen is accessible from the main menu.",
+        "Instructions include controls, objective, coin collection, obstacle avoidance, and power-up usage.",
+        "Text is readable and formatted (sections/bullets) and fully in English."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/HowToPlayPage.tsx",
+          "operation": "create",
+          "description": "Create a formatted How to Play page (sections/bullets) describing arrow keys/on-screen controls, boost, pause, objective, coins, obstacles, and power-ups; use shadcn-ui Typography/Card components as available. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/MainMenuPage.tsx",
+          "operation": "modify",
+          "description": "Wire the How to Play button to navigate to the tutorial/instructions screen."
+        }
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "summary": "Consistent black/neon/metallic UI theme (avoid blue/purple dominance) across menus, HUD, and dialogs using Tailwind and component system.",
+      "acceptanceCriteria": [
+        "Main menu, settings, leaderboard, tutorial, and in-game HUD share consistent styling.",
+        "Buttons look glossy/metallic with neon accents; dominant palette is not blue/purple.",
+        "Theme is applied consistently with Tailwind utility classes and the existing component system."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Create the frontend styling entry used by the React app to define theme CSS variables and base styles aligned to a black/neon/metallic aesthetic (avoid blue/purple as dominant)."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend Tailwind theme tokens (colors/shadows) for neon accents (e.g., neon green/orange) and metallic/gloss effects to support consistent styling across pages and HUD."
+        },
+        {
+          "path": "frontend/src/components/NeonShell.tsx",
+          "operation": "create",
+          "description": "Create a reusable layout wrapper (background overlays, spacing, consistent header/footer patterns) used by menu/settings/leaderboard/tutorial screens; use shadcn-ui Card where appropriate. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/MainMenuPage.tsx",
+          "operation": "modify",
+          "description": "Apply the shared theme wrapper and glossy/metallic neon button styles consistently, ensuring English text and readability over background imagery."
+        }
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "summary": "Wire the required generated static image assets into UI and gameplay (no backend image serving).",
+      "acceptanceCriteria": [
+        "All required generated images are present in frontend/public/assets/generated and are referenced by the frontend.",
+        "Menus and gameplay use these assets for backgrounds/sprites/icons.",
+        "No backend endpoints are used for serving image files."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/game/assets.ts",
+          "operation": "modify",
+          "description": "Reference and export the exact generated asset paths for gameplay/backgrounds/icons: frontend/public/assets/generated/bg-city-day.dim_1920x1080.png, frontend/public/assets/generated/bg-neon-night.dim_1920x1080.png, frontend/public/assets/generated/bg-highway.dim_1920x1080.png, frontend/public/assets/generated/bg-tunnel.dim_1920x1080.png, frontend/public/assets/generated/car-sports.dim_512x512.png, frontend/public/assets/generated/car-muscle.dim_512x512.png, frontend/public/assets/generated/car-drift.dim_512x512.png, frontend/public/assets/generated/car-super.dim_512x512.png, frontend/public/assets/generated/icon-coin.dim_128x128.png, frontend/public/assets/generated/icon-nitro.dim_128x128.png, frontend/public/assets/generated/icon-shield.dim_128x128.png, frontend/public/assets/generated/icon-magnet.dim_128x128.png, frontend/public/assets/generated/obstacle-cone.dim_256x256.png, frontend/public/assets/generated/obstacle-barrier.dim_256x256.png, frontend/public/assets/generated/obstacle-pothole.dim_256x256.png, frontend/public/assets/generated/fx-speed-trail.dim_512x128.png, frontend/public/assets/generated/fx-skid-mark.dim_512x128.png."
+        },
+        {
+          "path": "frontend/src/pages/MainMenuPage.tsx",
+          "operation": "modify",
+          "description": "Use frontend/public/assets/generated/bg-city-day.dim_1920x1080.png (and/or appropriate rotation) as the main menu background and use generated icons for menu affordances where applicable."
+        },
+        {
+          "path": "frontend/src/game/render.ts",
+          "operation": "modify",
+          "description": "Render level-appropriate backgrounds and sprites using the generated assets (cars, obstacles, collectibles, and FX textures) and ensure no backend is involved in serving these files."
+        },
+        {
+          "path": "frontend/src/components/game/HUD.tsx",
+          "operation": "modify",
+          "description": "Use generated icons in the HUD (coin, nitro, shield, magnet) referencing: frontend/public/assets/generated/icon-coin.dim_128x128.png, frontend/public/assets/generated/icon-nitro.dim_128x128.png, frontend/public/assets/generated/icon-shield.dim_128x128.png, frontend/public/assets/generated/icon-magnet.dim_128x128.png."
+        }
+      ]
+    }
+  ]
+}

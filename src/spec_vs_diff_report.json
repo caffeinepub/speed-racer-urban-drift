@@ -1,0 +1,88 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-14T07:34:22.219Z",
+  "summary": "Diff adds a Motoko backend actor with progress + leaderboard types/APIs, plus a new React/TanStack Router frontend structure and several gameplay UI components (HUD, pause, dialogs), a canvas-based game engine/input/render system, and client-side progress/settings hooks. Several requested UI screens and some persistence/theme constraints are not evidenced in the provided diff summary, while some backend/user-profile/access-control features appear beyond the BuildRequest.",
+  "missing_requirements": [
+    {
+      "id": "REQ-13",
+      "requirement": "Data remains available after canister upgrades/restarts according to standard stable storage patterns for Motoko.",
+      "reason": "The shown backend state uses in-memory vars/maps (e.g., playerProgressMap, scoreEntries, userProfiles) but the truncated excerpt does not show any stable variables or preupgrade/postupgrade hooks; persistence across upgrades is not evidenced.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "requirement": "Define and apply a consistent visual theme with a distinct \"black / neon / metallic\" street-racing style (avoid blue/purple as dominant colors).",
+      "reason": "HUD styling in the excerpt explicitly uses neon purple and blue elements (e.g., timer badge text-neon-purple; shield badge bg-blue/text-blue), which conflicts with the constraint to avoid blue/purple as dominant colors (at least in the HUD).",
+      "evidence": [
+        "frontend/src/components/game/HUD.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Backend access control/authorization mixins and admin-token initialization workflow.",
+      "reason": "BuildRequest does not mention authorization layers, permissions, admin tokens, or access control initialization beyond using Internet Identity principal as a key.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/hooks/useActor.ts"
+      ]
+    },
+    {
+      "description": "User profile model and CRUD APIs (getCallerUserProfile/getUserProfile/saveCallerUserProfile) plus a frontend ProfileSetupDialog flow.",
+      "reason": "BuildRequest requirements focus on game progress, settings, garage/store, and leaderboards; explicit user profile creation and profile dialogs are not requested.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/components/ProfileSetupDialog.tsx",
+        "frontend/src/hooks/useQueries.ts"
+      ]
+    },
+    {
+      "description": "Dark-mode ThemeProvider integration via next-themes and Sonner toaster setup.",
+      "reason": "Not explicitly requested by the BuildRequest (theme requirements specify Tailwind/component styling, but not next-themes or toast infrastructure).",
+      "evidence": [
+        "frontend/src/App.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.62,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/ProfileSetupDialog.tsx",
+    "frontend/src/components/game/GameOverDialog.tsx",
+    "frontend/src/components/game/HUD.tsx",
+    "frontend/src/components/game/LevelCompleteDialog.tsx",
+    "frontend/src/components/game/PauseOverlay.tsx",
+    "frontend/src/components/game/TouchControls.tsx",
+    "frontend/src/game/assets.ts",
+    "frontend/src/game/cars.ts",
+    "frontend/src/game/engine.ts",
+    "frontend/src/game/input.ts",
+    "frontend/src/game/levels.ts",
+    "frontend/src/game/powerups.ts",
+    "frontend/src/game/render.ts",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useProgress.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/hooks/useSettings.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/GamePage.tsx",
+    "frontend/src/pages/GaragePage.tsx",
+    "frontend/src/pages/HowToPlayPage.tsx",
+    "frontend/src/pages/LeaderboardPage.tsx",
+    "frontend/src/pages/MainMenuPage.tsx",
+    "frontend/src/pages/SettingsPage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

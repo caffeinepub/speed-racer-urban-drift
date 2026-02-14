@@ -1,0 +1,303 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-a-main-menu-home-screen-for-the-game-titled-speed-racer-urban-drift-with-the-tagline-race-through-the-neon-streets-and-master-ultimate-drifting-and-buttons-start-game-continue-leaderboard-settings-how-to-play-and-exit-back",
+      "featureTitle": "Create a main menu (home screen) for the game titled \"Speed Racer: Urban Drift\" with the tagline \"Race through the neon streets and master ultimate drifting!\" and buttons: Start Game, Continue, Leaderboard, Settings, How to Play, and Exit/Back.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/MainMenuPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-core-gameplay-loop-player-controls-a-car-on-an-urban-track-can-move-left-right-avoid-obstacles-traffic-collect-coins-use-nitro-boost-and-complete-the-level-before-a-timer-expires-or-trigger-game-over-on-failure-conditions",
+      "featureTitle": "Implement core gameplay loop: player controls a car on an urban track, can move left/right, avoid obstacles/traffic, collect coins, use nitro/boost, and complete the level before a timer expires (or trigger Game Over on failure conditions).",
+      "files": [
+        "frontend/src/game/assets.ts",
+        "frontend/src/game/engine.ts",
+        "frontend/src/game/input.ts",
+        "frontend/src/game/render.ts",
+        "frontend/src/pages/GamePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-in-game-hud-and-controls-with-the-following-elements-and-placement-top-bar-shows-score-speed-timer-coins-collected-right-side-shows-nitro-boost-bottom-bar-includes-pause-and-restart-and-settings-access-while-paused",
+      "featureTitle": "Add in-game HUD and controls with the following elements and placement: Top bar shows Score, Speed/Timer, Coins Collected; right side shows Nitro/Boost; bottom bar includes Pause and Restart (and Settings access while paused).",
+      "files": [
+        "frontend/src/components/game/HUD.tsx",
+        "frontend/src/components/game/TouchControls.tsx",
+        "frontend/src/pages/GamePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-pause-flow-with-pause-resume-and-restart-actions-that-correctly-freeze-unfreeze-gameplay-simulation-and-reset-the-level-when-requested",
+      "featureTitle": "Implement pause flow with Pause, Resume, and Restart actions that correctly freeze/unfreeze gameplay simulation and reset the level when requested.",
+      "files": [
+        "frontend/src/components/game/PauseOverlay.tsx",
+        "frontend/src/game/engine.ts",
+        "frontend/src/pages/GamePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-the-6-level-progression-structure-and-difficulty-ramp-exactly-as-specified-level-1-city-streets-easy-level-2-downtown-rush-medium-level-3-neon-night-medium-night-limited-visibility-level-4-highway-drift-hard-ramps-nitro-zones-level-5-underground-tunnel-hard-maze-like-time-limited-level-6-bonus-challenge-race-expert-collect-max-coins-under-time-pressure-each-level-unlocks-the-next-level-and-unlocks-a-car-or-power-up",
+      "featureTitle": "Implement the 6-level progression structure and difficulty ramp exactly as specified: Level 1 City Streets (easy), Level 2 Downtown Rush (medium), Level 3 Neon Night (medium, night/limited visibility), Level 4 Highway Drift (hard, ramps & nitro zones), Level 5 Underground Tunnel (hard, maze-like/time-limited), Level 6 Bonus/Challenge Race (expert, collect max coins under time pressure). Each level unlocks the next level and unlocks a car or power-up.",
+      "files": [
+        "frontend/src/game/levels.ts",
+        "frontend/src/hooks/useProgress.ts",
+        "frontend/src/pages/GamePage.tsx",
+        "frontend/src/pages/MainMenuPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-level-complete-power-up-alert-and-game-over-pop-ups-with-clear-english-text-and-actions-to-proceed-next-level-continue-retry-restart-or-return-to-main-menu",
+      "featureTitle": "Create level complete, power-up alert, and game over pop-ups with clear English text and actions to proceed (Next Level/Continue), retry (Restart), or return to main menu.",
+      "files": [
+        "frontend/src/components/game/GameOverDialog.tsx",
+        "frontend/src/components/game/LevelCompleteDialog.tsx",
+        "frontend/src/pages/GamePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-collectible-power-ups-at-minimum-nitro-boost-pickup-charge-shield-magnet-including-spawn-in-levels-activation-rules-durations-and-hud-indicators",
+      "featureTitle": "Implement collectible power-ups (at minimum: Nitro boost pickup/charge, Shield, Magnet) including spawn in levels, activation rules, durations, and HUD indicators.",
+      "files": [
+        "frontend/src/components/game/HUD.tsx",
+        "frontend/src/game/engine.ts",
+        "frontend/src/game/powerups.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-rewards-and-upgrades-coins-collected-during-races-accumulate-as-a-currency-used-to-unlock-new-cars-and-upgrades-provide-a-simple-garage-store-ui-to-view-locked-unlocked-cars-sports-muscle-drift-supercars-and-purchase-unlock-using-coins",
+      "featureTitle": "Add rewards and upgrades: coins collected during races accumulate as a currency used to unlock new cars and upgrades. Provide a simple garage/store UI to view locked/unlocked cars (Sports, Muscle, Drift, Supercars) and purchase/unlock using coins.",
+      "files": [
+        "frontend/src/game/cars.ts",
+        "frontend/src/pages/GamePage.tsx",
+        "frontend/src/pages/GaragePage.tsx",
+        "frontend/src/pages/MainMenuPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-saved-game-progress-that-supports-last-unlocked-level-last-played-level-coin-balance-unlocked-cars-upgrades-and-user-settings-continue-must-resume-from-the-saved-last-played-level-with-the-selected-car",
+      "featureTitle": "Implement saved game progress that supports: last unlocked level, last played level, coin balance, unlocked cars/upgrades, and user settings. Continue must resume from the saved last played level with the selected car.",
+      "files": [
+        "frontend/src/components/ProfileSetupDialog.tsx",
+        "frontend/src/hooks/useProgress.ts",
+        "frontend/src/pages/MainMenuPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-leaderboards-record-a-score-for-completed-runs-levels-and-allow-viewing-top-scores-global-and-local-personal-provide-a-leaderboard-screen-accessible-from-the-main-menu",
+      "featureTitle": "Implement leaderboards: record a score for completed runs/levels and allow viewing top scores (global and local/personal). Provide a leaderboard screen accessible from the main menu.",
+      "files": [
+        "frontend/src/pages/GamePage.tsx",
+        "frontend/src/pages/LeaderboardPage.tsx",
+        "frontend/src/pages/MainMenuPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-settings-screen-that-includes-sound-toggles-music-effects-graphics-quality-low-medium-high-control-scheme-keyboard-touch-joystick-and-language-options-english-plus-at-least-one-additional-placeholder-option",
+      "featureTitle": "Create a Settings screen that includes: sound toggles (music/effects), graphics quality (Low/Medium/High), control scheme (Keyboard/Touch/Joystick), and language options (English plus at least one additional placeholder option).",
+      "files": [
+        "frontend/src/components/game/PauseOverlay.tsx",
+        "frontend/src/hooks/useSettings.ts",
+        "frontend/src/pages/GamePage.tsx",
+        "frontend/src/pages/SettingsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-11"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-how-to-play-tutorial-instructions-screen-that-explains-controls-objectives-coins-obstacles-and-power-ups-in-clear-english-matching-the-specified-control-scheme-arrow-keys-on-screen-joystick-boost-pause",
+      "featureTitle": "Add a How to Play (tutorial/instructions) screen that explains controls, objectives, coins, obstacles, and power-ups in clear English, matching the specified control scheme (arrow keys/on-screen joystick, boost, pause).",
+      "files": [
+        "frontend/src/pages/HowToPlayPage.tsx",
+        "frontend/src/pages/MainMenuPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-12"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-define-and-apply-a-consistent-visual-theme-for-the-entire-ui-menus-hud-dialogs-with-a-distinct-black-neon-metallic-street-racing-style-avoid-blue-purple-as-dominant-colors-including-typography-button-styles-and-layout-spacing",
+      "featureTitle": "Define and apply a consistent visual theme for the entire UI (menus, HUD, dialogs) with a distinct \"black / neon / metallic\" street-racing style (avoid blue/purple as dominant colors), including typography, button styles, and layout spacing.",
+      "files": [
+        "frontend/src/index.css",
+        "frontend/src/pages/MainMenuPage.tsx",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-14"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-generated-static-image-assets-backgrounds-cars-obstacles-collectibles-ui-icons-under-frontend-public-assets-generated-and-use-them-in-the-ui-and-gameplay-scenes-no-backend-image-serving",
+      "featureTitle": "Add generated static image assets (backgrounds, cars, obstacles, collectibles, UI icons) under frontend/public/assets/generated and use them in the UI and gameplay scenes (no backend image serving).",
+      "files": [
+        "frontend/src/components/game/HUD.tsx",
+        "frontend/src/game/assets.ts",
+        "frontend/src/game/render.ts",
+        "frontend/src/pages/MainMenuPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-15"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

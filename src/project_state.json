@@ -1,0 +1,192 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Build a racing/drifting game titled \"Speed Racer: Urban Drift\" featuring urban neon tracks, obstacle avoidance, coin collection, unlockable cars/upgrades, power-ups, multi-level progression, and leaderboards.",
+  "architectural_notes": [
+    "Theme/art direction: neon urban street racing with glossy black/neon/metallic UI; effects include smoke, skid marks, speed trails, particles"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Neon urban city street background, daytime (bg-city-day.dim_1920x1080.png)\n- Neon urban city street background, night with glowing signs and limited visibility (bg-neon-night.dim_1920x1080.png)\n- Highway background with motion feel and ramps hinted (bg-highway.dim_1920x1080.png)\n- Underground tunnel background, moody lighting (bg-tunnel.dim_1920x1080.png)\n- Top-down or 3/4 view sports car sprite, neon reflections (car-sports.dim_512x512.png)\n- Top-down or 3/4 view muscle car sprite, metallic finish (car-muscle.dim_512x512.png)\n- Top-down or 3/4 view drift car sprite, aggressive kit (car-drift.dim_512x512.png)\n- Top-down or 3/4 view supercar sprite, sleek silhouette (car-super.dim_512x512.png)\n- Coin collectible icon, glossy metallic (icon-coin.dim_128x128.png)\n- Nitro/boost collectible icon, canister style (icon-nitro.dim_128x128.png)\n- Shield power-up icon, hex/energy style (icon-shield.dim_128x128.png)\n- Magnet power-up icon, neon horseshoe magnet (icon-magnet.dim_128x128.png)\n- Traffic cone obstacle sprite (obstacle-cone.dim_256x256.png)\n- Road barrier obstacle sprite (obstacle-barrier.dim_256x256.png)\n- Pothole obstacle sprite (obstacle-pothole.dim_256x256.png)\n- Speed trail particle strip texture (fx-speed-trail.dim_512x128.png)\n- Skid mark texture, subtle (fx-skid-mark.dim_512x128.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-a-main-menu-home-screen-for-the-game-titled-speed-racer-urban-drift-with-the-tagline-race-through-the-neon-streets-and-master-ultimate-drifting-and-buttons-start-game-continue-leaderboard-settings-how-to-play-and-exit-back",
+      "title": "Create a main menu (home screen) for the game titled \"Speed Racer: Urban Drift\" with the tagline \"Race through the neon streets and master ultimate drifting!\" and buttons: Start Game, Continue, Leaderboard, Settings, How to Play, and Exit/Back.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-core-gameplay-loop-player-controls-a-car-on-an-urban-track-can-move-left-right-avoid-obstacles-traffic-collect-coins-use-nitro-boost-and-complete-the-level-before-a-timer-expires-or-trigger-game-over-on-failure-conditions",
+      "title": "Implement core gameplay loop: player controls a car on an urban track, can move left/right, avoid obstacles/traffic, collect coins, use nitro/boost, and complete the level before a timer expires (or trigger Game Over on failure conditions).",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-in-game-hud-and-controls-with-the-following-elements-and-placement-top-bar-shows-score-speed-timer-coins-collected-right-side-shows-nitro-boost-bottom-bar-includes-pause-and-restart-and-settings-access-while-paused",
+      "title": "Add in-game HUD and controls with the following elements and placement: Top bar shows Score, Speed/Timer, Coins Collected; right side shows Nitro/Boost; bottom bar includes Pause and Restart (and Settings access while paused).",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-pause-flow-with-pause-resume-and-restart-actions-that-correctly-freeze-unfreeze-gameplay-simulation-and-reset-the-level-when-requested",
+      "title": "Implement pause flow with Pause, Resume, and Restart actions that correctly freeze/unfreeze gameplay simulation and reset the level when requested.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-6-level-progression-structure-and-difficulty-ramp-exactly-as-specified-level-1-city-streets-easy-level-2-downtown-rush-medium-level-3-neon-night-medium-night-limited-visibility-level-4-highway-drift-hard-ramps-nitro-zones-level-5-underground-tunnel-hard-maze-like-time-limited-level-6-bonus-challenge-race-expert-collect-max-coins-under-time-pressure-each-level-unlocks-the-next-level-and-unlocks-a-car-or-power-up",
+      "title": "Implement the 6-level progression structure and difficulty ramp exactly as specified: Level 1 City Streets (easy), Level 2 Downtown Rush (medium), Level 3 Neon Night (medium, night/limited visibility), Level 4 Highway Drift (hard, ramps & nitro zones), Level 5 Underground Tunnel (hard, maze-like/time-limited), Level 6 Bonus/Challenge Race (expert, collect max coins under time pressure). Each level unlocks the next level and unlocks a car or power-up.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-level-complete-power-up-alert-and-game-over-pop-ups-with-clear-english-text-and-actions-to-proceed-next-level-continue-retry-restart-or-return-to-main-menu",
+      "title": "Create level complete, power-up alert, and game over pop-ups with clear English text and actions to proceed (Next Level/Continue), retry (Restart), or return to main menu.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-collectible-power-ups-at-minimum-nitro-boost-pickup-charge-shield-magnet-including-spawn-in-levels-activation-rules-durations-and-hud-indicators",
+      "title": "Implement collectible power-ups (at minimum: Nitro boost pickup/charge, Shield, Magnet) including spawn in levels, activation rules, durations, and HUD indicators.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-rewards-and-upgrades-coins-collected-during-races-accumulate-as-a-currency-used-to-unlock-new-cars-and-upgrades-provide-a-simple-garage-store-ui-to-view-locked-unlocked-cars-sports-muscle-drift-supercars-and-purchase-unlock-using-coins",
+      "title": "Add rewards and upgrades: coins collected during races accumulate as a currency used to unlock new cars and upgrades. Provide a simple garage/store UI to view locked/unlocked cars (Sports, Muscle, Drift, Supercars) and purchase/unlock using coins.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-saved-game-progress-that-supports-last-unlocked-level-last-played-level-coin-balance-unlocked-cars-upgrades-and-user-settings-continue-must-resume-from-the-saved-last-played-level-with-the-selected-car",
+      "title": "Implement saved game progress that supports: last unlocked level, last played level, coin balance, unlocked cars/upgrades, and user settings. Continue must resume from the saved last played level with the selected car.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-leaderboards-record-a-score-for-completed-runs-levels-and-allow-viewing-top-scores-global-and-local-personal-provide-a-leaderboard-screen-accessible-from-the-main-menu",
+      "title": "Implement leaderboards: record a score for completed runs/levels and allow viewing top scores (global and local/personal). Provide a leaderboard screen accessible from the main menu.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-settings-screen-that-includes-sound-toggles-music-effects-graphics-quality-low-medium-high-control-scheme-keyboard-touch-joystick-and-language-options-english-plus-at-least-one-additional-placeholder-option",
+      "title": "Create a Settings screen that includes: sound toggles (music/effects), graphics quality (Low/Medium/High), control scheme (Keyboard/Touch/Joystick), and language options (English plus at least one additional placeholder option).",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-how-to-play-tutorial-instructions-screen-that-explains-controls-objectives-coins-obstacles-and-power-ups-in-clear-english-matching-the-specified-control-scheme-arrow-keys-on-screen-joystick-boost-pause",
+      "title": "Add a How to Play (tutorial/instructions) screen that explains controls, objectives, coins, obstacles, and power-ups in clear English, matching the specified control scheme (arrow keys/on-screen joystick, boost, pause).",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-define-and-apply-a-consistent-visual-theme-for-the-entire-ui-menus-hud-dialogs-with-a-distinct-black-neon-metallic-street-racing-style-avoid-blue-purple-as-dominant-colors-including-typography-button-styles-and-layout-spacing",
+      "title": "Define and apply a consistent visual theme for the entire UI (menus, HUD, dialogs) with a distinct \"black / neon / metallic\" street-racing style (avoid blue/purple as dominant colors), including typography, button styles, and layout spacing.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-generated-static-image-assets-backgrounds-cars-obstacles-collectibles-ui-icons-under-frontend-public-assets-generated-and-use-them-in-the-ui-and-gameplay-scenes-no-backend-image-serving",
+      "title": "Add generated static image assets (backgrounds, cars, obstacles, collectibles, UI icons) under frontend/public/assets/generated and use them in the UI and gameplay scenes (no backend image serving).",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Core gameplay: race/drift through urban tracks, avoid obstacles/traffic, collect coins, finish before timer",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Level progression: 6 levels (City Streets, Downtown Rush, Neon Night, Highway Drift, Underground Tunnel, Bonus Challenge) with increasing difficulty and unlocks",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Main menu with Start, Continue (saved progress), Leaderboard, Settings, How to Play, Exit/Back",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "In-game HUD & controls: Pause/Resume/Restart, Score/Coins, Speed/Timer, Nitro/Boost button, Level Complete/Game Over popups",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Rewards & upgrades: coin currency to unlock new cars and upgrades",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Power-ups: nitro boost, shields, magnets (and related pickups/alerts)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Leaderboards: view top scores (global/local)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Settings: sound toggles, graphics quality, control scheme (keyboard/touch/joystick), language options",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "How to Play tutorial/instructions covering controls, objectives, and power-up usage",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "Backend canister: implement persistent data models and APIs for player progress (coins, unlocked cars/upgrades, unlocked levels, settings, last played), and leaderboard storage/querying. Use Internet Identity principal as the player key when available; otherwise support an anonymous session fallback stored on the client.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "status": "pending"
+    }
+  ],
+  "projectName": "Speed Racer: Urban Drift",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

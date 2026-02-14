@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0.5rem;
+        --background: 0.145 0 0;
+        --foreground: 0.985 0 0;
+        --card: 0.205 0 0;
+        --card-foreground: 0.985 0 0;
+        --popover: 0.269 0 0;
+        --popover-foreground: 0.985 0 0;
+        --primary: 0.7 0.25 180;
+        --primary-foreground: 0.145 0 0;
+        --secondary: 0.371 0 0;
+        --secondary-foreground: 0.985 0 0;
+        --muted: 0.269 0 0;
+        --muted-foreground: 0.708 0 0;
+        --accent: 0.65 0.28 30;
+        --accent-foreground: 0.145 0 0;
+        --destructive: 0.577 0.245 27.325;
+        --destructive-foreground: 0.985 0 0;
+        --border: 1 0 0 / 10%;
+        --input: 1 0 0 / 15%;
+        --ring: 0.7 0.25 180;
+        --neon-cyan: 0.7 0.25 180;
+        --neon-orange: 0.65 0.28 30;
+        --neon-purple: 0.6 0.25 300;
+        --neon-green: 0.7 0.25 140;
+    }
+
+    .dark {
+        --background: 0.145 0 0;
+        --foreground: 0.985 0 0;
+        --card: 0.205 0 0;
+        --card-foreground: 0.985 0 0;
+        --popover: 0.269 0 0;
+        --popover-foreground: 0.985 0 0;
+        --primary: 0.7 0.25 180;
+        --primary-foreground: 0.145 0 0;
+        --secondary: 0.269 0 0;
+        --secondary-foreground: 0.985 0 0;
+        --muted: 0.269 0 0;
+        --muted-foreground: 0.708 0 0;
+        --accent: 0.65 0.28 30;
+        --accent-foreground: 0.145 0 0;
+        --destructive: 0.704 0.191 22.216;
+        --destructive-foreground: 0.985 0 0;
+        --border: 1 0 0 / 10%;
+        --input: 1 0 0 / 15%;
+        --ring: 0.7 0.25 180;
+    }
+
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+}
+
+@layer utilities {
+    .neon-text {
+        color: oklch(var(--neon-cyan));
+        text-shadow: 
+            0 0 10px oklch(var(--neon-cyan) / 0.5),
+            0 0 20px oklch(var(--neon-cyan) / 0.3),
+            0 0 30px oklch(var(--neon-cyan) / 0.2);
+    }
+
+    .neon-button {
+        background: linear-gradient(135deg, oklch(var(--neon-cyan) / 0.2), oklch(var(--neon-orange) / 0.2));
+        border: 2px solid oklch(var(--neon-cyan));
+        color: oklch(var(--neon-cyan));
+        font-weight: 700;
+        text-shadow: 0 0 10px oklch(var(--neon-cyan) / 0.5);
+        box-shadow: 
+            0 0 10px oklch(var(--neon-cyan) / 0.3),
+            inset 0 0 10px oklch(var(--neon-cyan) / 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .neon-button:hover {
+        background: linear-gradient(135deg, oklch(var(--neon-cyan) / 0.3), oklch(var(--neon-orange) / 0.3));
+        box-shadow: 
+            0 0 20px oklch(var(--neon-cyan) / 0.5),
+            inset 0 0 15px oklch(var(--neon-cyan) / 0.2);
+        transform: translateY(-2px);
+    }
+
+    .shadow-neon {
+        box-shadow: 
+            0 0 20px oklch(var(--neon-cyan) / 0.4),
+            0 0 40px oklch(var(--neon-cyan) / 0.2);
+    }
+
+    .text-neon-cyan {
+        color: oklch(var(--neon-cyan));
+    }
+
+    .text-neon-orange {
+        color: oklch(var(--neon-orange));
+    }
+
+    .text-neon-purple {
+        color: oklch(var(--neon-purple));
+    }
+
+    .text-neon-green {
+        color: oklch(var(--neon-green));
+    }
+
+    .border-neon-cyan {
+        border-color: oklch(var(--neon-cyan));
+    }
+
+    .border-neon-orange {
+        border-color: oklch(var(--neon-orange));
+    }
+
+    .border-neon-purple {
+        border-color: oklch(var(--neon-purple));
+    }
+
+    .border-neon-green {
+        border-color: oklch(var(--neon-green));
+    }
+
+    .bg-neon-cyan {
+        background-color: oklch(var(--neon-cyan));
+    }
+
+    .bg-neon-orange {
+        background-color: oklch(var(--neon-orange));
+    }
+}
